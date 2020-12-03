@@ -1,26 +1,18 @@
-const time = document.querySelector('#clock');
+const getCurrentTime = () => {
+  const currentDate = new Date();
 
-currentTime = (i) =>
-{
-  if (i < 10) {
-    i = "0" + i
-  }
+  const hours = padNumbers(currentDate.getHours());
+  const minutes = padNumbers(currentDate.getMinutes());
+  const seconds = padNumbers(currentDate.getSeconds());
+  return `${[hours, minutes, seconds].join(':')}`;
+};
 
-  return i;
-}
+const padNumbers = (num) => {
+  return num <10 ? `0${num}` : `${num}`; 
+};
 
-clock = () =>
-{
-  let date = new Date();
-  let h = date.getHours();
-  let m = date.getMinutes();
-  let s = date.getSeconds();
-
-  m = currentTime(m);
-  h = currentTime(h);
-  s = currentTime(s);
-
-  time.innerHTML = h + ":" + m + ":" + s;
-}
-
-setInterval(clock, 1000)
+setInterval( () => {
+  const time = getCurrentTime();
+  const clock = document.querySelector('#clock');
+  clock.textContent = time;
+}, 1000);
